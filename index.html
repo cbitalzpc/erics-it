@@ -531,7 +531,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
+            max-width: 640px;
         }
+
+        .author-role a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+        .author-role a:hover { color: var(--blue-bright); }
 
         .testimonial-card {
             background: var(--card-bg);
@@ -893,19 +897,15 @@
             </div>
             <div class="stats-bar">
                 <div class="stat">
-                    <div class="stat-num">100+</div>
-                    <div class="stat-label">Clients Served</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num">24/7</div>
-                    <div class="stat-label">Support Available</div>
+                    <div class="stat-num">24/6</div>
+                    <div class="stat-label">Support (Closed Shabbos)</div>
                 </div>
                 <div class="stat">
                     <div class="stat-num">99%</div>
                     <div class="stat-label">Uptime Guarantee</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-num">10+</div>
+                    <div class="stat-num">3+</div>
                     <div class="stat-label">Years Experience</div>
                 </div>
             </div>
@@ -921,7 +921,7 @@
         </div>
         <div class="services-grid">
             <div class="service-card fade-in">
-                <img src="network-security.jpg" alt="Network Security" class="service-img">
+                <img src="img/network-security.svg" alt="Network Security" class="service-img">
                 <div class="service-body">
                     <div class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></div>
                     <h3>Network Security</h3>
@@ -929,7 +929,7 @@
                 </div>
             </div>
             <div class="service-card fade-in">
-                <img src="cloud-solutions.jpg" alt="Cloud Solutions" class="service-img">
+                <img src="img/cloud-solutions.svg" alt="Cloud Solutions" class="service-img">
                 <div class="service-body">
                     <div class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-cloud"/></svg></div>
                     <h3>Cloud Solutions</h3>
@@ -937,7 +937,7 @@
                 </div>
             </div>
             <div class="service-card fade-in">
-                <img src="it-support.jpg" alt="IT Support" class="service-img">
+                <img src="img/it-support.svg" alt="IT Support" class="service-img">
                 <div class="service-body">
                     <div class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg></div>
                     <h3>IT Support & Maintenance</h3>
@@ -945,7 +945,7 @@
                 </div>
             </div>
             <div class="service-card fade-in">
-                <img src="data-recovery.jpg" alt="Data Backup & Recovery" class="service-img">
+                <img src="img/data-recovery.svg" alt="Data Backup & Recovery" class="service-img">
                 <div class="service-body">
                     <div class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-database"/></svg></div>
                     <h3>Data Backup & Recovery</h3>
@@ -953,7 +953,7 @@
                 </div>
             </div>
             <div class="service-card fade-in">
-                <img src="software-implementation.jpg" alt="Software Implementation" class="service-img">
+                <img src="img/software-implementation.svg" alt="Software Implementation" class="service-img">
                 <div class="service-body">
                     <div class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg></div>
                     <h3>Software Implementation</h3>
@@ -961,7 +961,7 @@
                 </div>
             </div>
             <div class="service-card fade-in">
-                <img src="hardware-management.jpg" alt="Hardware Management" class="service-img">
+                <img src="img/hardware-management.svg" alt="Hardware Management" class="service-img">
                 <div class="service-body">
                     <div class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></div>
                     <h3>Hardware Upgrades & Management</h3>
@@ -1020,39 +1020,17 @@
         <div class="section-header fade-in">
             <div class="section-label">Client Reviews</div>
             <h2 class="section-title">What Our Clients Say</h2>
-            <p class="section-sub">Don't just take our word for it — here's what businesses we've helped have to say.</p>
+            <p class="section-sub">Don't just take our word for it — here's what a business we've helped has to say.</p>
         </div>
         <div class="testimonials-grid">
             <div class="testimonial-card fade-in">
                 <div class="stars">★★★★★</div>
                 <p class="testimonial-text">"Eric's IT completely transformed our network infrastructure. Response times are incredible and the team genuinely cares about our business."</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar">JM</div>
+                    <div class="author-avatar">MW</div>
                     <div>
-                        <div class="author-name">James M.</div>
-                        <div class="author-role">CEO, Retail Company</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"We had a major data scare and Eric's team had us back up and running within hours. Their data backup solution has given us real peace of mind."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SR</div>
-                    <div>
-                        <div class="author-name">Sarah R.</div>
-                        <div class="author-role">Operations Manager</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="stars">★★★★★</div>
-                <p class="testimonial-text">"Moving to the cloud seemed daunting but Eric's IT made the whole process smooth and straightforward. Highly recommend for any cloud migration."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">DK</div>
-                    <div>
-                        <div class="author-name">David K.</div>
-                        <div class="author-role">Founder, Tech Startup</div>
+                        <div class="author-name">Michael W.</div>
+                        <div class="author-role">Shareholder, <a href="https://www.alzpc.cpa/" target="_blank" rel="noopener">Apfel, Levy and Zlotnick, P.C.</a></div>
                     </div>
                 </div>
             </div>
@@ -1149,7 +1127,7 @@
                 <li><a href="#testimonials">Reviews</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="footer-copy">© 2025 Eric's IT. All rights reserved. · Long Island, NY</div>
+            <div class="footer-copy">© 2024–2026 Eric's IT LLC. All rights reserved. · Long Island, NY</div>
         </div>
     </footer>
 
