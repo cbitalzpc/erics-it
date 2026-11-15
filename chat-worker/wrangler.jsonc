@@ -17,14 +17,13 @@
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ChatHub"] }],
 
-  // Cloudflare Email Service: handoff alerts + admin login codes
-  "send_email": [{ "name": "EMAIL" }],
-
   "vars": {
     "ADMIN_EMAIL": "support@erics-it.com",
     "FROM_EMAIL": "chat@erics-it.com",
     "SITE_ORIGIN": "https://erics-it.com",
     "AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
   }
-  // Secret (set with `wrangler secret put SESSION_SECRET`): signs admin login cookies
+  // Secrets (set with `wrangler secret put <NAME>`):
+  //   SESSION_SECRET  signs admin login cookies
+  //   RESEND_API_KEY  sends handoff alerts + login codes via Resend (resend.com)
 }

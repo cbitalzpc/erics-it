@@ -69,6 +69,23 @@ const now = () => Date.now();
 const clip = (s, n = MAX_TEXT) => String(s ?? "").trim().slice(0, n);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+// ─────────────────────────── Email (Resend) ───────────────────────────
+// Free tier: 3,000 emails/month. API key is the RESEND_API_KEY secret.
+async function sendEmail(env, { to, subject, text, html, replyTo }) {
+  if (!env.RESEND_API_KEY) throw new Error("RESEND_API_KEY is not set");
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: `Eric's IT Chat <${env.FROM_EMAIL}>`,
+      to: [to], subject, text, html,
+      ...(replyTo ? { reply_to: replyTo } : {}),
+    }),
+  });
+  if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
 // ─────────────────────────── Session cookies ───────────────────────────
 
 const enc = new TextEncoder();
@@ -172,15 +189,14 @@ export class ChatHub extends DurableObject {
     this.kvSet("login_code", JSON.stringify({ code, tries: 0 }), now() + 10 * 60_000);
     this.kvSet("login_last", String(now()), now() + 60_000);
     try {
-      await this.env.EMAIL.send({
+      await sendEmail(this.env, {
         to: this.env.ADMIN_EMAIL,
-        from: { email: this.env.FROM_EMAIL, name: "Eric's IT Chat" },
         subject: `Your Eric's IT admin login code: ${code}`,
         text: `Your login code is ${code}. It expires in 10 minutes.\n\nIf you didn't request this, you can ignore this email.`,
         html: `<p>Your Eric's IT chat admin login code is:</p><p style="font-size:28px;font-weight:700;letter-spacing:4px">${code}</p><p>It expires in 10 minutes. If you didn't request this, you can ignore this email.</p>`,
       });
     } catch (e) {
-      console.error("login email failed", e.code, e.message);
+      console.error("login email failed", e.message);
       return json({ ok: false, error: "Couldn't send the login email. Check the email service setup." }, 500);
     }
     return json({ ok: true });
@@ -297,10 +313,9 @@ export class ChatHub extends DurableObject {
     const who = [c.name, c.email].filter(Boolean).join(" · ") || "Website visitor";
     const label = { visitor: "Visitor", bot: "Assistant", agent: "You", system: "—" };
     try {
-      await this.env.EMAIL.send({
+      await sendEmail(this.env, {
         to: this.env.ADMIN_EMAIL,
-        from: { email: this.env.FROM_EMAIL, name: "Eric's IT Chat" },
-        ...(c.email ? { replyTo: c.email } : {}),
+        replyTo: c.email || undefined,
         subject: `Live chat: ${who} needs a technician`,
         text: `${who} asked for a technician on erics-it.com.\n\nJoin the chat: ${link}\n\n` +
           transcript.map((m) => `${label[m.sender] || m.sender}: ${m.text}`).join("\n"),
@@ -311,7 +326,7 @@ export class ChatHub extends DurableObject {
             .join("")}</table>`,
       });
     } catch (e) {
-      console.error("notify email failed", e.code, e.message);
+      console.error("notify email failed", e.message);
     }
   }
 
